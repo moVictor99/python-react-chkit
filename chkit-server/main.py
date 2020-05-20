@@ -214,6 +214,24 @@ def get_messages_by_msg(msg_id):
     dumped = json.dumps(c.get_messages_by_msg(msg_id))
     return json.dumps(c.get_messages_by_msg(msg_id))
 
+import optparse
+import sys
+from gevent import monkey; monkey.patch_all()
 
-debug(True)
-run(host='localhost', port=8080, reloader=True)
+if __name__=="__main__":
+    parser = optparse.OptionParser("usage: %prog [options] arg1 arg2")
+    parser.add_option("-H", "--host", dest="hostname",
+                      default="127.0.0.1", type="string",
+                      help="specify hostname to run on")
+    parser.add_option("-p", "--port", dest="portnum", default=8090,
+                      type="int", help="port number to run on")
+    (options, args) = parser.parse_args()
+
+   
+
+    hostname = options.hostname
+    portnum = options.portnum
+try:
+    run(server="gevent", host=hostname, port=portnum, reloader=True)
+except KeyboardInterrupt:
+    sys.exit(0)
