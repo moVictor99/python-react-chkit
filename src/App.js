@@ -14,6 +14,7 @@ function App() {
 
     useEffect(() => {
         let ret = ChatManeger.getMessagesByRoomID().then((res) => {
+            // use thse wrapper to add more functionality and integration to your code
             setMsgArr(res.data)
         })
     }, [])
